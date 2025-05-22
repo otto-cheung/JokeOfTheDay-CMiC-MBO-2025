@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joke of the Day</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-bottom: 1.5rem;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #jokeDisplay {
+      white-space: pre-wrap;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 1rem;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>Joke of the Day</h1>
+  <button onclick="getJoke()">Get a Joke</button>
+  <pre id="jokeDisplay">Click the button to fetch a joke!</pre>
+
+  <script>
+    // sample API URL
+    const API_URL = 'https://<api-id>.execute-api.<region>.amazonaws.com/prod/joke';
+  </script>
+
+  <script>
+    async function getJoke() {
+      const display = document.getElementById('jokeDisplay');
+      display.textContent = 'Loading joke...';
+
+      try {
+        const response = await fetch(API_URL);
+        const result = await response.json();
+        const data = typeof result.body === 'string' ? JSON.parse(result.body) : result;
+
+        display.textContent =
+          `Category: ${data.category}\n\n\n${data.setup}\n\n${data.delivery}`;
+      } catch (err) {
+        display.textContent = 'Failed to load a joke.';
+        console.error(err);
+      }
+    }
+  </script>
+</body>
+</html>
