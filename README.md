@@ -74,7 +74,7 @@ When implementing this policy:
 1. `index.html` is hosted in an S3 bucket (static website enabled, public access allowed).
 2. Clicking the button sends a `GET` request to the API Gateway.
 3. API Gateway triggers a Lambda function.
-4. Lambda fetches a joke from `https://sv443.net/jokeapi/v2/joke/Any` and returns a simplified response.
+4. Lambda fetches a joke from `https://sv443.net/jokeapi/v2/joke/Programming` and returns a simplified response.
 5. The frontend displays the joke.
 
 ## 🧪 Example Response
